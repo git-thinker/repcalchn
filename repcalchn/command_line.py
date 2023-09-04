@@ -1,3 +1,7 @@
+""""
+This file is partially borrowed from https://github.com/dekadans/repcal
+"""
+
 import argparse
 from .RepublicanDate import RepublicanDate
 from .DecimalTime import DecimalTime
@@ -10,6 +14,7 @@ def main():
     parser = argparse.ArgumentParser(description='Converts and prints date and time in the French Republican style.')
     parser.add_argument('date', help='The datetime ISO string to convert, defaults to current local time. May be full datetime or just date or time.', nargs='?')
     parser.add_argument('--format', help='A format definition string')
+    parser.add_argument('--fr', action="store_true", help="Print in French")
     parser.add_argument('--paris-mean', action='store_true', help='Changes default date from local time to Paris Mean Time.')
 
     args = parser.parse_args()
@@ -30,7 +35,8 @@ def main():
         default_format.append(DecimalTime.default_formatting)
     if d is not None:
         rdate = RepublicanDate.from_gregorian(d)
-        default_format.append(RepublicanDate.default_formatting)
+        if not args.fr: rdate.set_chinese_formatting()
+        default_format.append(rdate.default_formatting)
 
     default_format = ', '.join(default_format)
 

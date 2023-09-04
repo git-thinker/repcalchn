@@ -1,19 +1,19 @@
 import setuptools
 
-with open("README.md", "r") as fh:
+with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="repcal",
-    packages=['repcal'],
-    version="1.2.1",
-    author="Tomas Thelander",
-    author_email="tomas@tthe.se",
-    description="The French Republican calendar and decimal time in Python",
+    name="repcalchn",
+    packages=['repcalchn'],
+    version="1.0.0",
+    author="Doctor",
+    author_email="",
+    description="The French Republican calendar and decimal time in Python in Chinese and French",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/dekadans/repcal",
-    licence='MIT',
+    url="https://github.com/git-thinker/repcalchn",
+    license='MIT',
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
@@ -22,7 +22,7 @@ setuptools.setup(
     python_requires='>=3.6',
     entry_points={
         "console_scripts": [
-            'repcal=repcal.command_line:main'
+            'repcalchn=repcalchn.command_line:main'
         ]
     }
 )

@@ -1,5 +1,10 @@
+"""
+This file is partially borrowed from https://github.com/dekadans/repcal
+"""
+
 from datetime import date
 from .RepublicanFormatter import RepublicanFormatter
+from . import chinese_name as chn
 
 
 class RepublicanDate:
@@ -58,9 +63,18 @@ class RepublicanDate:
                 years_left -= combination[1]
 
         return roman
+    
+    def set_chinese_formatting(self):
+        if self.is_sansculottides():
+            self.default_formatting = "法国共和历 {%y}年 {%d} {%x}"
+        else:
+            self.default_formatting = "法国共和历 {%y}年 {%b} {%d} {%x} {%a}"
 
     def get_month(self):
         return self.months[self.month_index] if not self.is_sansculottides() else None
+    
+    def get_month_chn(self):
+        return chn.months_chinese[self.month_index] if not self.is_sansculottides() else None
 
     def get_week_number(self):
         return (self.month_day_index // 10 + 1) if not self.is_sansculottides() else None
@@ -73,9 +87,29 @@ class RepublicanDate:
             return self.sansculottides[self.week_day_index]
         else:
             return self.days[self.week_day_index]
+    
+    def get_weekday_chn(self):
+        if self.is_sansculottides():
+            return chn.sansculottides_chinese[self.week_day_index]
+        else:
+            return chn.days_chinese[self.week_day_index]
 
     def is_sansculottides(self):
         return self.month_index == 12
+    
+    def get_unique_chn(self):
+        if self.is_sansculottides():
+            return chn.sansculottides_chinese[self.week_day_index]
+        else:
+            return chn.days_chinese_unique[self.month_index][self.month_day_index]
+    
+    def get_full_unique_chn(self):
+        if self.is_sansculottides():
+            return chn.sansculottides_chinese[self.week_day_index]
+        else:
+            month = self.get_month_chn()
+            day = chn.days_chinese_unique[self.month_index][self.month_day_index]
+            return (month + ' ' + day).strip()
 
     @classmethod
     def from_gregorian(cls, date_to_convert):

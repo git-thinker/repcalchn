@@ -1,3 +1,7 @@
+"""
+This file is from https://github.com/dekadans/repcal
+"""
+
 from datetime import datetime, date, time
 from math import floor
 from .RepublicanFormatter import RepublicanFormatter
